@@ -1,9 +1,19 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: Georgia, Arial, Helvetica, sans-serif;
     color: #444444;
     background-color: white;
+    font-size: large;
+}
+
+p {
+    margin: 0;
+    padding: 5px;
 }
 
 h1 {
@@ -16,6 +26,29 @@ header {
     z-index: 1;
 }
 
+footer {
+    background-image: url("../media/footer.jpg");
+    margin: 0;
+    margin-top: 30px;
+    padding: 0;
+    text-align: center;
+    color: #aeaeae;
+    font-size: medium;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+details>summary {
+    list-style: none;
+}
+
 #logo-img {
     margin: auto;
     width: 5%;
@@ -23,8 +56,9 @@ header {
 }
 
 #menu-nav {
-    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.2);
-    position: -webkit-sticky; /* Safari */
+    box-shadow: 0px 8px 5px -5px rgba(0, 0, 0, 0.2);
+    position: -webkit-sticky;
+    /* Safari */
     position: sticky;
     top: 0;
     background-color: white;
@@ -80,13 +114,9 @@ header {
     left: 0;
 }
 
-li {
-    list-style: none;
-}
-
 #background-img-container {
     overflow: hidden;
-    margin-top: -8%;
+    margin-top: -10%;
 }
 
 #background-img {
@@ -96,10 +126,9 @@ li {
 }
 
 #slider-container {
-    box-shadow: 0px -5px 5px -5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -8px 5px -5px rgba(0, 0, 0, 0.2);
     margin: auto;
-    margin-top: 40%;
-    height: 100000px;
+    margin-top: 35%;
     background-color: white;
 }
 
@@ -110,32 +139,102 @@ li {
 }
 
 #about-company-header {
+    padding-top: 30px;
+    margin-bottom: 20px;
+}
+
+#about-company-title {
+    margin: 0;
     padding: 10px;
 }
 
-#about-company-dropdown {}
-
-.dropdown-submenu {
-    position: relative;
-    padding: 0;
-    top: 0;
-    margin-top: -1px;
+#about-company-txt {
+    margin: 0;
+    padding: 10px;
 }
 
-.dropdown-content {
+.dropdown-element-shadowbox {
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.dropdown-element {
+    margin-top: 20px;
+    padding: 15px;
+    box-shadow: inset 0px 0px 10px 30px rgba(0, 0, 0, 0.01);
+    text-align: right;
 }
 
 .dropdown-title {
+    float: left;
+    margin: 0;
+    padding: 10px;
+}
+
+.dropdown-toggle {
+    display: inline;
+    width: 50px;
+    margin: auto;
+    padding: 10px;
+    font-size: 40px;
+    color: #909090;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+
+.dropdown-toggle:hover {
+    color: #0054a6;
+}
+
+.dropdown-content {
+    clear: both;
+}
+
+.dropdown-img-container {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
 }
 
 .dropdown-img {
-    margin: 0;
-    padding: 10px;
     width: 60%;
 }
 
 .dropdown-txt {
-    padding: 0;
+    margin: 0;
+    padding: 10px;
+    text-align: left;
+}
+
+#contact-us {
+    padding: 10px;
+}
+
+#contact-us-header {
+    margin: 0;
+    padding: 10px;
+    font-size: 30px;
+}
+
+#contacts {    
+    font-size: medium;
+    padding: 5px;
+    margin: auto;
+    text-align: center;
+}
+
+.contacts-column {
     margin: 0;
     text-align: left;
+    display: inline-block;
+}
+
+#copyright {
+    clear: both;
+    padding: 5px;
+    background-color: #282a2b;
 }

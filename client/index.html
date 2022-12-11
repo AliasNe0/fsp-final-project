@@ -13,16 +13,16 @@
 </head>
 
 <body>
-    <header>
+    <header id="logo">
         <img id="logo-img" src="../media/logo.png" alt="">
     </header>
     <div id="menu-nav">
         <div id="navigation-bar">
             <ul>
-                <li><a href="#"><i class="fa fa-home"></i><span>Home</span></a></li>
-                <li><a href="#"><i class="fa fa-handshake"></i><span>Products</span></a></li>
-                <li><a href="#"><i class="fa fa-user"></i><span>About</span></a></li>
-                <li><a href="#"><i class="fa fa-book"></i><span>Contact</span></a></li>
+                <li><a href="#"><span>Home</span></a></li>
+                <li><a href="#"><span>Products</span></a></li>
+                <li><a href="#"></i><span>About</span></a></li>
+                <li><a href="#"><span>Contact</span></a></li>
             </ul>
         </div>
     </div>
@@ -32,43 +32,86 @@
     <div id="slider-container">
         <div id="about-company-container">
             <div id="about-company-header">
-                <h1>About the Company</h2>
-                    <p> “Grand Fish Feed” is considered one of the most recent companies in the field of manufacturing
+                <h1 id="about-company-title">About the Company</h2>
+                    <p id="about-company-txt"> “Grand Fish Feed” is considered one of the most recent companies in the
+                        field of manufacturing
                         and
                         supplying of aquatic feed in Egypt.
                         Grand aims at achieving leadership (Grand aims to be a pioneer) in the aquatic feed industry and
                         contribute significantly to the development of the aquaculture sector locally,
                         regionally and internationally.</p>
             </div>
-            <div id="about-company-dropdown">
+            <div id="about-company-details">
                 <ul>
-                    <li class="dropdown-submenu">
-                        <h2 class="dropdown-title">Высокое качество</h2>
-                        <span class="dropdown-toggle">+</span>
-                        <div class="dropdown-content">
-                            <img class="dropdown-img" src="../media/about-company2.jpg" alt="">
-                            <p class="dropdown-txt">Неизменное соблюдение высочайших
-                                стандартов безопасности кормов,
-                                непрекращающийся поиск методов повышения устойчивого развития отрасли,
-                                внимательный выбор поставщиков и использование только высококачественных
-                                продуктов.</p>
+                    <li class="dropdown-element-shadowbox">
+                        <div class="dropdown-element">
+                            <h2 class="dropdown-title">Высокое качество</h2>
+                            <p class="dropdown-toggle">+</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-img-container">
+                                    <img class="dropdown-img" src="../media/about-company2.jpg" alt="">
+                                </div>
+                                <p class="dropdown-txt">Неизменное соблюдение высочайших
+                                    стандартов безопасности кормов,
+                                    непрекращающийся поиск методов повышения устойчивого развития отрасли,
+                                    внимательный выбор поставщиков и использование только высококачественных
+                                    продуктов.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown-element-shadowbox">
+                        <div class="dropdown-element">
+                            <h2 class="dropdown-title">Высокое качество</h2>
+                            <p class="dropdown-toggle">+</p>
+                            <div class="dropdown-content">
+                                <div class="dropdown-img-container">
+                                    <img class="dropdown-img" src="../media/about-company2.jpg" alt="">
+                                </div>
+                                <p class="dropdown-txt">Неизменное соблюдение высочайших
+                                    стандартов безопасности кормов,
+                                    непрекращающийся поиск методов повышения устойчивого развития отрасли,
+                                    внимательный выбор поставщиков и использование только высококачественных
+                                    продуктов.</p>
+                            </div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
-    <footer>
-    </footer>
-    <script>
-        $(document).ready(function () {
-            $('.dropdown-toggle').on("click", function (e) {
-                $(this).next('div').toggle();
-                e.stopPropagation();
-                e.preventDefault();
+        <footer>
+            <div id="contact-us">
+                <h2 id="contact-us-header">CONTACT US</h2>
+                <p>33 Al Moltaka Al-Arabi Street, Masaken</p>
+                <p>Sheraton, Cairo. Egypt.</p>
+                <div id="contacts">
+                    <div class="contacts-column">
+                        <p>Phone:</p>
+                        <p>Mobile:</p>
+                        <p>Fax:</p>
+                        <p>Email:</p>
+                    </div>
+                    <div class="contacts-column">
+                        <p class="contacts-column-ref"><a href="tel:+20220650018">(+202) 2065 0018</a></p>
+                        <p class="contacts-column-ref"><a href="tel:+20201203333649">(+202) 01203333649</a></p>
+                        <p class="contacts-column-ref"><a href="tel:+20220650066">(+202) 2065 0066</a></p>
+                        <p class="contacts-column-ref"><a href="tmailto:info@grand-aqua.com">info@grand-aqua.com</a></p>
+                    </div>
+                </div>
+            </div>
+            <div id="copyright">
+                <p>© Copyright 2022 | Neolias</p>
+            </div>
+        </footer>
+        <script>
+            $(document).ready(function () {
+                $('.dropdown-toggle').on("click", function (e) {
+                    $(this).next('div').slideToggle(500);
+                    // element.scrollIntoView(true);
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
             });
-        });
-    </script>
+        </script>
 </body>
 
 </html>

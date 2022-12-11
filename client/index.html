@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>My Website</title>
     <link rel="stylesheet" href="styles.css">
     <script src="code.js"></script>
 </head>
 
 <body>
-    <div id="logo">
+    <header>
         <img id="logo-img" src="../media/logo.png" alt="">
-    </div>
+    </header>
     <div id="menu-nav">
         <div id="navigation-bar">
             <ul>
@@ -27,14 +29,46 @@
     <div id="background-img-container">
         <img id="background-img" src="../media/grand.jpg" alt="">
     </div>
-    <div id="about-company">
-        <div class="about-company-txt">
-            <h1>About the Company</h2>
-            <p> “Grand Fish Feed” is considered one of the most recent companies in the field of manufacturing and supplying of aquatic feed in Egypt.
-                Grand aims at achieving leadership (Grand aims to be a pioneer) in the aquatic feed industry and contribute significantly to the development of the aquaculture sector locally,
-                regionally and internationally.</p>
+    <div id="slider-container">
+        <div id="about-company-container">
+            <div id="about-company-header">
+                <h1>About the Company</h2>
+                    <p> “Grand Fish Feed” is considered one of the most recent companies in the field of manufacturing
+                        and
+                        supplying of aquatic feed in Egypt.
+                        Grand aims at achieving leadership (Grand aims to be a pioneer) in the aquatic feed industry and
+                        contribute significantly to the development of the aquaculture sector locally,
+                        regionally and internationally.</p>
+            </div>
+            <div id="about-company-dropdown">
+                <ul>
+                    <li class="dropdown-submenu">
+                        <h2 class="dropdown-title">Высокое качество</h2>
+                        <span class="dropdown-toggle">+</span>
+                        <div class="dropdown-content">
+                            <img class="dropdown-img" src="../media/about-company2.jpg" alt="">
+                            <p class="dropdown-txt">Неизменное соблюдение высочайших
+                                стандартов безопасности кормов,
+                                непрекращающийся поиск методов повышения устойчивого развития отрасли,
+                                внимательный выбор поставщиков и использование только высококачественных
+                                продуктов.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
+    <footer>
+    </footer>
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').on("click", function (e) {
+                $(this).next('div').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+    </script>
 </body>
 
 </html>

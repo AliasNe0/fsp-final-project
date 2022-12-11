@@ -1,5 +1,4 @@
-body
-{
+body {
     margin: 0;
     padding: 0;
     font-family: Georgia, Arial, Helvetica, sans-serif;
@@ -7,20 +6,17 @@ body
     background-color: white;
 }
 
-h1
-{
+h1 {
     text-align: center;
 }
 
-#logo
-{
+header {
     padding: 5px 0;
-    z-index: 1;
     background-color: white;
+    z-index: 1;
 }
 
-#logo-img
-{
+#logo-img {
     margin: auto;
     width: 5%;
     display: block;
@@ -32,11 +28,12 @@ h1
     position: sticky;
     top: 0;
     background-color: white;
+    z-index: 1;
 }
 
 #navigation-bar ul {
     text-align: center;
-    width: 40%;
+    width: 30%;
     overflow: hidden;
     margin: auto;
     padding: 0px;
@@ -53,7 +50,7 @@ h1
 }
 
 #navigation-bar a {
-    color: black;
+    color: #444444;
     font-size: 20px;
     text-decoration: none;
     text-align: center;
@@ -87,21 +84,18 @@ li {
     list-style: none;
 }
 
-#background-img-container
-{
+#background-img-container {
     overflow: hidden;
     margin-top: -8%;
 }
 
-#background-img
-{
+#background-img {
     width: 100%;
     position: fixed;
     z-index: -1;
 }
 
-#about-company
-{
+#slider-container {
     box-shadow: 0px -5px 5px -5px rgba(0, 0, 0, 0.2);
     margin: auto;
     margin-top: 40%;
@@ -109,9 +103,39 @@ li {
     background-color: white;
 }
 
-.about-company-txt
-{
+#about-company-container {
+    text-align: center;
     margin: auto;
     width: 50%;
+}
+
+#about-company-header {
     padding: 10px;
+}
+
+#about-company-dropdown {}
+
+.dropdown-submenu {
+    position: relative;
+    padding: 0;
+    top: 0;
+    margin-top: -1px;
+}
+
+.dropdown-content {
+}
+
+.dropdown-title {
+}
+
+.dropdown-img {
+    margin: 0;
+    padding: 10px;
+    width: 60%;
+}
+
+.dropdown-txt {
+    padding: 0;
+    margin: 0;
+    text-align: left;
 }

@@ -28,7 +28,7 @@ header {
 
 footer {
     background-image: url("../media/footer.jpg");
-    background-position: center; 
+    background-position: center;
     margin: 0;
     margin-top: 30px;
     padding: 0;
@@ -198,7 +198,8 @@ details>summary {
 
 .dropdown-img-container {
     padding: 10px;
-    text-align: center;;
+    text-align: center;
+    ;
 }
 
 .dropdown-img {
@@ -221,7 +222,7 @@ details>summary {
     font-size: 30px;
 }
 
-#contacts {    
+#contacts {
     font-size: medium;
     padding: 5px;
     margin: auto;
@@ -238,4 +239,40 @@ details>summary {
     clear: both;
     padding: 5px;
     background-color: #282a2b;
+}
+
+/* Edit mode */
+
+#edit-header {
+    cursor: pointer;
+    color: blue;
+    font-weight: bold;
+    font-size: medium;
+    margin-top: 65px;
+    float: right;
+    width: 80px;
+}
+
+.edit-about {
+    cursor: pointer;
+    color: blue;
+    font-weight: bold;
+    font-size: medium;
+    width: 80px;
+}
+
+#edit-form {
+    padding: 10px;
+}
+
+.edit-form-label {
+   padding: 10px;
+}
+
+.edit-form-input {
+    width: 80%;
+}
+
+#form-txt {
+    height: 500px;
 }

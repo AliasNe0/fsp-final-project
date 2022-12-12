@@ -1,5 +1,7 @@
 let httpAdress = "http://localhost:3000"
 
+let editMode = true
+
 function init() {
     loadAbouts()
 }
@@ -10,14 +12,7 @@ async function loadAbouts() {
     showAbouts(abouts)
     createAboutHeader(abouts)
     attachToggles()
-}
-
-function attachToggles() {
-    $('.dropdown-toggle').on("click", function (e) {
-        $(this).next('div').slideToggle(500);
-        e.stopPropagation();
-        e.preventDefault();
-    })
+    enableEditMode()
 }
 
 function showAbouts(abouts) {
@@ -30,7 +25,7 @@ function showAbouts(abouts) {
 
 function createAboutHeader(abouts) {
     let aboutsHeader = document.getElementById('about-company-header')
-    let header = abouts.filter(function(about){return about.id == 0})[0]
+    let header = abouts.filter(function (about) { return about.id == 0 })[0]
 
     if (header == null) return
     let h1 = document.createElement('h1')
@@ -115,4 +110,122 @@ function createAboutListItem(about) {
     div2.appendChild(p2)
 
     return li
+}
+
+function attachToggles() {
+    $('.dropdown-toggle').on("click", function (e) {
+        $(this).next('div').slideToggle(500);
+        e.stopPropagation();
+        e.preventDefault();
+    })
+}
+
+function enableEditMode() {
+    if (editMode) {
+        let aboutCompany = document.getElementById("about-company-container")
+        attachEditButton(aboutCompany, "id", "edit-header")
+        let dropdownElements = Array.from(document.getElementsByClassName("dropdown-element"))
+        for (dropdownElement of dropdownElements) {
+            attachEditButton(dropdownElement, "class", "edit-about")
+        }
+    }
+}
+
+function attachEditButton(parentElement, attrType, attrValue) {
+    if (parentElement == null) return
+    let editButton = document.createElement('button')
+    let editButton_attr = document.createAttribute(attrType)
+    editButton_attr.value = attrValue
+    editButton.setAttributeNode(editButton_attr)
+    let editButton_text = document.createTextNode('Edit')
+    editButton.appendChild(editButton_text)
+    editButton.onclick = function () { editAbout(editButton) }
+    parentElement.insertBefore(editButton, parentElement.children[0])
+}
+
+function editAbout(editButton) {
+    editButton.innerText = "Cancel"
+    editButton.onclick = function () { saveAbout(editButton) }
+    attachEditForm(editButton.parentNode)
+}
+
+function saveAbout(editButton) {
+    editButton.innerText = "Edit"
+    editButton.onclick = function () { editAbout(editButton) }
+    detatchEditForm()
+}
+
+function attachEditForm(parentElement) {
+    // form
+    let form = document.createElement('form')
+    let form_id = document.createAttribute('id')
+    form_id.value = "edit-form"
+    form.setAttributeNode(form_id)
+    // title label
+    let label1 = document.createElement('label')
+    let label1_class = document.createAttribute('class')
+    label1_class.value = "edit-form-label"
+    label1.setAttributeNode(label1_class)
+    label1.setAttribute("for", "form-title");
+    let label1_text = document.createTextNode('Title')
+    label1.appendChild(label1_text)
+    form.appendChild(label1)
+    // title input
+    let input1 = document.createElement('input')
+    let input1_id = document.createAttribute('id')
+    input1_id.value = "form-title"
+    input1.setAttributeNode(input1_id)
+    let input1_class = document.createAttribute('class')
+    input1_class.value = "edit-form-input"
+    input1.setAttributeNode(input1_class)
+    input1.setAttribute("type", "text");
+    form.appendChild(input1)
+    form.appendChild(document.createElement('br'))
+    form.appendChild(document.createElement('br'))
+    // image label
+    let label2 = document.createElement('label')
+    let label2_class = document.createAttribute('class')
+    label2_class.value = "edit-form-label"
+    label2.setAttributeNode(label2_class)
+    label2.setAttribute("for", "form-image");
+    let label2_text = document.createTextNode('Image path')
+    label2.appendChild(label2_text)
+    form.appendChild(label2)
+    // image input
+    let input2 = document.createElement('input')
+    let input2_id = document.createAttribute('id')
+    input2_id.value = "form-image"
+    input2.setAttributeNode(input2_id)
+    let input2_class = document.createAttribute('class')
+    input2_class.value = "edit-form-input"
+    input2.setAttributeNode(input2_class)
+    input2.setAttribute("type", "text");
+    form.appendChild(input2)
+    form.appendChild(document.createElement('br'))
+    form.appendChild(document.createElement('br'))
+    // text label
+    let label3 = document.createElement('label')
+    let label3_class = document.createAttribute('class')
+    label3_class.value = "edit-form-label"
+    label3.setAttributeNode(label3_class)
+    label3.setAttribute("for", "form-txt");
+    let label3_text = document.createTextNode('Text')
+    label3.appendChild(label3_text)
+    form.appendChild(label3)
+    // text input
+    let input3 = document.createElement('input')
+    let input3_id = document.createAttribute('id')
+    input3_id.value = "form-txt"
+    input3.setAttributeNode(input3_id)
+    let input3_class = document.createAttribute('class')
+    input3_class.value = "edit-form-input"
+    input3.setAttributeNode(input3_class)
+    input3.setAttribute("type", "text");
+    form.appendChild(input3)
+    parentElement.appendChild(form)
+}
+
+function detatchEditForm() {
+    let form = document.getElementById("edit-form")
+    form.parentNode.removeChild(form)
 }

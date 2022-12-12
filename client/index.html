@@ -12,7 +12,7 @@
     <script src="code.js"></script>
 </head>
 
-<body>
+<body onload="init()">
     <header id="logo">
         <img id="logo-img" src="../media/logo.png" alt="">
     </header>
@@ -41,42 +41,8 @@
                         contribute significantly to the development of the aquaculture sector locally,
                         regionally and internationally.</p>
             </div>
-            <div id="about-company-details">
-                <ul>
-                    <li class="dropdown-element-shadowbox">
-                        <div class="dropdown-element">
-                            <h2 class="dropdown-title">Высокое качество</h2>
-                            <p class="dropdown-toggle">+</p>
-                            <div class="dropdown-content">
-                                <div class="dropdown-img-container">
-                                    <img class="dropdown-img" src="../media/about-company2.jpg" alt="">
-                                </div>
-                                <p class="dropdown-txt">Неизменное соблюдение высочайших
-                                    стандартов безопасности кормов,
-                                    непрекращающийся поиск методов повышения устойчивого развития отрасли,
-                                    внимательный выбор поставщиков и использование только высококачественных
-                                    продуктов.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="dropdown-element-shadowbox">
-                        <div class="dropdown-element">
-                            <h2 class="dropdown-title">Высокое качество</h2>
-                            <p class="dropdown-toggle">+</p>
-                            <div class="dropdown-content">
-                                <div class="dropdown-img-container">
-                                    <img class="dropdown-img" src="../media/about-company2.jpg" alt="">
-                                </div>
-                                <p class="dropdown-txt">Неизменное соблюдение высочайших
-                                    стандартов безопасности кормов,
-                                    непрекращающийся поиск методов повышения устойчивого развития отрасли,
-                                    внимательный выбор поставщиков и использование только высококачественных
-                                    продуктов.</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <ul id="about-company-list">
+            </ul>
         </div>
         <footer>
             <div id="contact-us">
@@ -91,10 +57,10 @@
                         <p>Email:</p>
                     </div>
                     <div class="contacts-column">
-                        <p class="contacts-column-ref"><a href="tel:+20220650018">(+202) 2065 0018</a></p>
-                        <p class="contacts-column-ref"><a href="tel:+20201203333649">(+202) 01203333649</a></p>
-                        <p class="contacts-column-ref"><a href="tel:+20220650066">(+202) 2065 0066</a></p>
-                        <p class="contacts-column-ref"><a href="tmailto:info@grand-aqua.com">info@grand-aqua.com</a></p>
+                        <p class="contacts-column-ref"><a href="tel: +20220650018">(+202) 2065 0018</a></p>
+                        <p class="contacts-column-ref"><a href="tel: +20201203333649">(+202) 01203333649</a></p>
+                        <p class="contacts-column-ref"><a href="tel: +20220650066">(+202) 2065 0066</a></p>
+                        <p class="contacts-column-ref"><a href="mailto: info@grand-aqua.com">info@grand-aqua.com</a></p>
                     </div>
                 </div>
             </div>
@@ -102,16 +68,6 @@
                 <p>© Copyright 2022 | Neolias</p>
             </div>
         </footer>
-        <script>
-            $(document).ready(function () {
-                $('.dropdown-toggle').on("click", function (e) {
-                    $(this).next('div').slideToggle(500);
-                    // element.scrollIntoView(true);
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            });
-        </script>
 </body>
 
 </html>

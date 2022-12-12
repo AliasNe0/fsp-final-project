@@ -8,6 +8,7 @@ async function loadAbouts() {
     let response = await fetch(httpAdress + '/about-company')
     let abouts = await response.json()
     showAbouts(abouts)
+    createAboutHeader(abouts)
     attachToggles()
 }
 
@@ -25,6 +26,28 @@ function showAbouts(abouts) {
         let li = createAboutListItem(about)
         if (li != null) aboutsList.appendChild(li)
     })
+}
+
+function createAboutHeader(abouts) {
+    let aboutsHeader = document.getElementById('about-company-header')
+    let header = abouts.filter(function(about){return about.id == 0})[0]
+
+    if (header == null) return
+    let h1 = document.createElement('h1')
+    let h1_class = document.createAttribute('class')
+    h1_class.value = 'about-company-title'
+    h1.setAttributeNode(h1_class)
+    let h1_text = document.createTextNode(header.title)
+    h1.appendChild(h1_text)
+    aboutsHeader.appendChild(h1)
+
+    let p = document.createElement('p')
+    let p_class = document.createAttribute('class')
+    p_class.value = 'about-company-txt'
+    p.setAttributeNode(p_class)
+    let p_text = document.createTextNode(header.text)
+    p.appendChild(p_text)
+    aboutsHeader.appendChild(p)
 }
 
 function createAboutListItem(about) {
@@ -48,8 +71,8 @@ function createAboutListItem(about) {
     let h2_class = document.createAttribute('class')
     h2_class.value = 'dropdown-title'
     h2.setAttributeNode(h2_class)
-    let header = document.createTextNode(about.header)
-    h2.appendChild(header)
+    let title = document.createTextNode(about.title)
+    h2.appendChild(title)
     div.appendChild(h2)
 
     let p = document.createElement('p')
@@ -87,8 +110,8 @@ function createAboutListItem(about) {
     let p2_class = document.createAttribute('class')
     p2_class.value = 'dropdown-txt'
     p2.setAttributeNode(p2_class)
-    let text = document.createTextNode(about.text)
-    p2.appendChild(text)
+    let p2_text = document.createTextNode(about.text)
+    p2.appendChild(p2_text)
     div2.appendChild(p2)
 
     return li

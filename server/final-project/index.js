@@ -23,7 +23,7 @@ db.once('open', function () {
 // schema 1
 const aboutSchema = new mongoose.Schema({
     id: { type: Number, required: true },
-    header: { type: String, required: true },
+    title: { type: String, required: true },
     text: { type: String, required: true },
     img: { type: String, required: false }
 })
@@ -55,10 +55,10 @@ app.get('/about-company/:id', async (request, response) => {
 })
 
 app.put('/todos', async (request, response) => {
-    const { id, header, text, img } = request.body
+    const { id, title, text, img } = request.body
     const about = new About({
         id: id,
-        header: header,
+        title: title,
         text: text,
         img: img
     })
@@ -67,10 +67,10 @@ app.put('/todos', async (request, response) => {
 })
 
 app.put('/todos/:id', async (request, response) => {
-    const { id, header, text, img } = request.body
+    const { id, title, text, img } = request.body
     const editedAbout = await About.findByIdAndUpdate(request.params.id, {
         id: id,
-        header: header,
+        title: title,
         text: text,
         img: img
     })

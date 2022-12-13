@@ -11,6 +11,12 @@ Other pages will be finished during December. In addition to the static website 
 have been added. There is an "Edit Mode" that allows for manipulatation of the data in those containers. The data is loaded from custom MongoDB collections and is updated by sending GET, PUT and DELETE HTTP requests to the server. The server is hosted using Deta.sh.
 ## Detailed description
 IN PROGRESS
+### Desctiption
+### UI Instructions
+### Architecture
+### JavaScript-functions and relationships
+### REST end points
+### MongoDB visualization
 ### Time track
 The current version of the application was done in approximately four days:
 - Day 1: Home page mockup with HTML and CSS

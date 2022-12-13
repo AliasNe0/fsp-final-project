@@ -1,4 +1,4 @@
-let httpAdress = "http://localhost:3000"
+let httpAdress = "https://fsp-ab0189.deta.dev"
 
 let editMode = false
 
@@ -205,9 +205,9 @@ function attachNewAboutForm(button) {
 }
 
 function detachNewaboutForm(button) {
-    removeFromParentByClass(button, '.cancel-about')
     removeFromParentByClass(button, '.edit-form')
     removeFromParentByClass(button, '.save-about')
+    removeFromParentByClass(button, '.cancel-about')
 }
 
 async function convertFormToJson(button) {
@@ -242,7 +242,11 @@ async function addAbout(button) {
     let li = createAboutListItem(about)
     let addButton = document.getElementById('add-about')
     if (li != null) aboutsList.insertBefore(li, addButton)
-    detachNewaboutForm(button)
+    removeFromParentByClass(button, '.edit-form')
+    removeFromParentByClass(button, '.cancel-about')
+    removeFromParentByClass(button, '.save-about')
+    let parentElement = document.getElementById(about._id)
+    attachButton(parentElement, 'id', 'edit-header', 'Edit', editAbout, 0)
 }
 
 async function updateAbout(button) {
@@ -265,7 +269,7 @@ function updateDropdown(about) {
     let image = parentElement.querySelector('.dropdown-img')
     let text = parentElement.querySelector('.dropdown-txt')
     title.textContent = about.title
-    image.setAttribute('src', about.img)
+    if (image != null) image.setAttribute('src', about.img)
     text.textContent = about.text
 }
 

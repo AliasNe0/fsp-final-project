@@ -1,7 +1,6 @@
 # Documentation for Full Stack Programming Course TTC2080-3009
-Autumn 2022
 ### Student
-Ilia Chichkanov - AB0189
+Chichkanov Ilia [AB0189]
 ### Date completed
 12.12.2022
 ## Link to the live website

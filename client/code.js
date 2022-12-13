@@ -1,18 +1,18 @@
 let httpAdress = "http://localhost:3000"
 
-let editMode = true
+let editMode = false
 
-function init() {
-    loadAbouts()
+async function init() {
+    let abouts = await loadAbouts()
+    showAbouts(abouts)
+    createAboutHeader(abouts)
+    attachToggles()
+    attachEditModeButton()
 }
 
 async function loadAbouts() {
     let response = await fetch(httpAdress + '/about-company')
-    let abouts = await response.json()
-    showAbouts(abouts)
-    createAboutHeader(abouts)
-    attachToggles()
-    enableEditMode()
+    return await response.json()
 }
 
 function showAbouts(abouts) {
@@ -26,90 +26,11 @@ function showAbouts(abouts) {
 function createAboutHeader(abouts) {
     let aboutsHeader = document.getElementById('about-company-header')
     let header = abouts.filter(function (about) { return about.id == 0 })[0]
-
     if (header == null) return
-    let h1 = document.createElement('h1')
-    let h1_class = document.createAttribute('class')
-    h1_class.value = 'about-company-title'
-    h1.setAttributeNode(h1_class)
-    let h1_text = document.createTextNode(header.title)
-    h1.appendChild(h1_text)
+    let h1 = createElementWithTxt('h1', 'class', 'about-company-title', header.title)
     aboutsHeader.appendChild(h1)
-
-    let p = document.createElement('p')
-    let p_class = document.createAttribute('class')
-    p_class.value = 'about-company-txt'
-    p.setAttributeNode(p_class)
-    let p_text = document.createTextNode(header.text)
-    p.appendChild(p_text)
+    let p = createElementWithTxt('p', 'class', 'about-company-txt', header.text)
     aboutsHeader.appendChild(p)
-}
-
-function createAboutListItem(about) {
-    if (about.id == "0") return
-
-    let li = document.createElement('li')
-    let li_id = document.createAttribute('id')
-    li_id.value = about._id
-    let li_class = document.createAttribute('class')
-    li_class.value = 'dropdown-element-shadowbox'
-    li.setAttributeNode(li_id)
-    li.setAttributeNode(li_class)
-
-    let div = document.createElement('div')
-    let div_class = document.createAttribute('class')
-    div_class.value = 'dropdown-element'
-    div.setAttributeNode(div_class)
-    li.appendChild(div)
-
-    let h2 = document.createElement('h2')
-    let h2_class = document.createAttribute('class')
-    h2_class.value = 'dropdown-title'
-    h2.setAttributeNode(h2_class)
-    let title = document.createTextNode(about.title)
-    h2.appendChild(title)
-    div.appendChild(h2)
-
-    let p = document.createElement('p')
-    let p_class = document.createAttribute('class')
-    p_class.value = 'dropdown-toggle'
-    p.setAttributeNode(p_class)
-    let toggle = document.createTextNode("+")
-    p.appendChild(toggle)
-    div.appendChild(p)
-
-    let div2 = document.createElement('div')
-    let div2_class = document.createAttribute('class')
-    div2_class.value = 'dropdown-content'
-    div2.setAttributeNode(div2_class)
-    div.appendChild(div2)
-
-    if (about.img != "") {
-        let div3 = document.createElement('div')
-        let div3_class = document.createAttribute('class')
-        div3_class.value = 'dropdown-img-container'
-        div3.setAttributeNode(div3_class)
-        div2.appendChild(div3)
-
-        let img = document.createElement('img')
-        let img_class = document.createAttribute('class')
-        img_class.value = 'dropdown-img'
-        let img_src = document.createAttribute('src')
-        img_src.value = about.img
-        img.setAttributeNode(img_class)
-        img.setAttributeNode(img_src)
-        div3.appendChild(img)
-    }
-
-    let p2 = document.createElement('p')
-    let p2_class = document.createAttribute('class')
-    p2_class.value = 'dropdown-txt'
-    p2.setAttributeNode(p2_class)
-    let p2_text = document.createTextNode(about.text)
-    p2.appendChild(p2_text)
-    div2.appendChild(p2)
-
-    return li
 }
 
 function attachToggles() {
@@ -120,112 +41,241 @@ function attachToggles() {
     })
 }
 
-function enableEditMode() {
+function attachEditModeButton() {
+    let sliderContainer = document.getElementById("slider-container")
+    attachButton(sliderContainer, 'id', 'edit-mode', 'Edit Mode', toggleEditMode, 0)
+}
+
+function attachButton(parentElement, attrType, attrValue, text, callback, position) {
+    if (parentElement == null) return
+    let button = createElementWithTxt('button', attrType, attrValue, text)
+    button.onclick = function () { callback(button) }
+    parentElement.insertBefore(button, parentElement.children[position])
+}
+
+function createElement(elementType, attrType, attrValue) {
+    let element = document.createElement(elementType)
+    element.setAttribute(attrType, attrValue)
+    return element
+}
+
+function createElement2(elementType, attrType, attrValue, attrType2, attrValue2) {
+    let element = document.createElement(elementType)
+    element.setAttribute(attrType, attrValue)
+    element.setAttribute(attrType2, attrValue2)
+    return element
+}
+
+function createElementWithTxt(elementType, attrType, attrValue, text) {
+    let element = document.createElement(elementType)
+    element.setAttribute(attrType, attrValue)
+    element.appendChild(document.createTextNode(text))
+    return element
+}
+
+function createAboutListItem(about) {
+    if (about.id == "0") return
+    let li = createElement2('li', 'id', about._id, 'class', 'dropdown-element-shadowbox')
+    let div = createElement('div', 'class', 'dropdown-element')
+    li.appendChild(div)
+    let h2 = createElementWithTxt('h2', 'class', 'dropdown-title', about.title)
+    div.appendChild(h2)
+    let p = createElementWithTxt('p', 'class', 'dropdown-toggle', '+')
+    div.appendChild(p)
+    let div2 = createElement('div', 'class', 'dropdown-content')
+    div.appendChild(div2)
+    if (about.img != "") {
+        let div3 = createElement('div', 'class', 'dropdown-img-container')
+        div2.appendChild(div3)
+        let img = createElement2('img', 'class', 'dropdown-img', 'src', about.img)
+        div3.appendChild(img)
+    }
+    let p2 = createElementWithTxt('p', 'class', 'dropdown-txt', about.text)
+    div2.appendChild(p2)
+    return li
+}
+
+function toggleEditMode(button) {
+    editMode = !editMode
     if (editMode) {
-        let aboutCompany = document.getElementById("about-company-container")
-        attachEditButton(aboutCompany, "id", "edit-header")
-        let dropdownElements = Array.from(document.getElementsByClassName("dropdown-element"))
-        for (dropdownElement of dropdownElements) {
-            attachEditButton(dropdownElement, "class", "edit-about")
-        }
+        enableEditMode()
+    }
+    else {
+        disableEditMode()
     }
 }
 
-function attachEditButton(parentElement, attrType, attrValue) {
-    if (parentElement == null) return
-    let editButton = document.createElement('button')
-    let editButton_attr = document.createAttribute(attrType)
-    editButton_attr.value = attrValue
-    editButton.setAttributeNode(editButton_attr)
-    let editButton_text = document.createTextNode('Edit')
-    editButton.appendChild(editButton_text)
-    editButton.onclick = function () { editAbout(editButton) }
-    parentElement.insertBefore(editButton, parentElement.children[0])
+function enableEditMode() {
+    let aboutCompanyHeader = document.getElementById("about-company-header")
+    attachButton(aboutCompanyHeader, 'id', 'edit-header', 'Edit', editAbout, 0)
+    let dropdownElements = document.querySelectorAll(".dropdown-element-shadowbox")
+    for (dropdownElement of dropdownElements) {
+        attachButton(dropdownElement, "class", "edit-about", 'Edit', editAbout, 0)
+    }
+    let aboutCompanyList = document.getElementById("about-company-list")
+    attachButton(aboutCompanyList, 'id', 'add-about', 'Add', attachNewAboutForm, aboutCompanyList.childElementCount)
 }
 
-function editAbout(editButton) {
-    editButton.innerText = "Cancel"
-    editButton.onclick = function () { saveAbout(editButton) }
-    attachEditForm(editButton.parentNode)
+function disableEditMode() {
+    removeById('edit-header')
+    removeAllbyClass('.edit-about')
+    removeAllbyClass('.cancel-about')
+    removeAllbyClass('.update-about')
+    removeAllbyClass('.edit-form')
+    removebyId('add-about')
+    removeAllbyClass('.save-about')
 }
 
-function saveAbout(editButton) {
-    editButton.innerText = "Edit"
-    editButton.onclick = function () { editAbout(editButton) }
-    detatchEditForm()
+function removeById(idAttr) {
+    let element = document.getElementById(idAttr)
+    element.parentNode.removeChild(element)
+}
+
+function removeAllbyClass(classAttr) {
+    let elements = document.querySelectorAll(classAttr)
+    for (const elment of elements) {
+        elment.parentNode.removeChild(elment)
+    }
+}
+
+function removeFromParentByClass(_element, classAttr) {
+    let element = _element.parentNode.querySelector(classAttr)
+    element.parentNode.removeChild(element)
+}
+
+function editAbout(button) {
+    button.innerText = 'Cancel'
+    button.onclick = function () { cancelEditAbout(button) }
+    let parentElement = button.parentNode
+    attachEditForm(parentElement)
+    attachButton(parentElement, 'class', 'update-about', 'Update', updateAbout, parentElement.childElementCount)
+    attachButton(parentElement, 'class', 'delete-about', 'Delete', deleteAbout, 0)
+}
+
+function cancelEditAbout(button) {
+    button.innerText = "Edit"
+    button.onclick = function () { editAbout(button) }
+    removeFromParentByClass(button, '.edit-form')
+    removeFromParentByClass(button, '.delete-about')
+    removeFromParentByClass(button, '.update-about')
 }
 
 function attachEditForm(parentElement) {
     // form
     let form = document.createElement('form')
-    let form_id = document.createAttribute('id')
-    form_id.value = "edit-form"
-    form.setAttributeNode(form_id)
-    // title label
-    let label1 = document.createElement('label')
-    let label1_class = document.createAttribute('class')
-    label1_class.value = "edit-form-label"
-    label1.setAttributeNode(label1_class)
-    label1.setAttribute("for", "form-title");
-    let label1_text = document.createTextNode('Title')
-    label1.appendChild(label1_text)
-    form.appendChild(label1)
-    // title input
-    let input1 = document.createElement('input')
-    let input1_id = document.createAttribute('id')
-    input1_id.value = "form-title"
-    input1.setAttributeNode(input1_id)
-    let input1_class = document.createAttribute('class')
-    input1_class.value = "edit-form-input"
-    input1.setAttributeNode(input1_class)
-    input1.setAttribute("type", "text");
-    form.appendChild(input1)
-    form.appendChild(document.createElement('br'))
-    form.appendChild(document.createElement('br'))
-    // image label
-    let label2 = document.createElement('label')
-    let label2_class = document.createAttribute('class')
-    label2_class.value = "edit-form-label"
-    label2.setAttributeNode(label2_class)
-    label2.setAttribute("for", "form-image");
-    let label2_text = document.createTextNode('Image path')
-    label2.appendChild(label2_text)
-    form.appendChild(label2)
-    // image input
-    let input2 = document.createElement('input')
-    let input2_id = document.createAttribute('id')
-    input2_id.value = "form-image"
-    input2.setAttributeNode(input2_id)
-    let input2_class = document.createAttribute('class')
-    input2_class.value = "edit-form-input"
-    input2.setAttributeNode(input2_class)
-    input2.setAttribute("type", "text");
-    form.appendChild(input2)
-    form.appendChild(document.createElement('br'))
-    form.appendChild(document.createElement('br'))
-    // text label
-    let label3 = document.createElement('label')
-    let label3_class = document.createAttribute('class')
-    label3_class.value = "edit-form-label"
-    label3.setAttributeNode(label3_class)
-    label3.setAttribute("for", "form-txt");
-    let label3_text = document.createTextNode('Text')
-    label3.appendChild(label3_text)
-    form.appendChild(label3)
-    // text input
-    let input3 = document.createElement('input')
-    let input3_id = document.createAttribute('id')
-    input3_id.value = "form-txt"
-    input3.setAttributeNode(input3_id)
-    let input3_class = document.createAttribute('class')
-    input3_class.value = "edit-form-input"
-    input3.setAttributeNode(input3_class)
-    input3.setAttribute("type", "text");
-    form.appendChild(input3)
+    form.setAttribute('class', 'edit-form');
+    // title
+    createLabel(form, 'class', 'edit-form-label', 'form-title', 'Title')
+    createInput(form, 'input', 'id', 'form-title', 'class', 'edit-form-input', 'name', 'form_title', 'type', 'text')
+    // image
+    createLabel(form, 'class', 'edit-form-label', 'form-image', 'Image')
+    createInput(form, 'input', 'id', 'form-image', 'class', 'edit-form-input', 'name', 'form_image', 'type', 'text')
+    // text
+    createLabel(form, 'class', 'edit-form-label', 'form-txt', 'Text')
+    createInput(form, 'textarea', 'id', 'form-txt', 'class', 'edit-form-input', 'name', 'form_txt', 'rows', '20')
+    // submit
+    // createInput(form, 'input', 'class', 'edit-form-submit', 'name', 'form_submit', 'type', 'submit', 'value', 'Save')
     parentElement.appendChild(form)
 }
 
-function detatchEditForm() {
-    let form = document.getElementById("edit-form")
-    form.parentNode.removeChild(form)
+function createLabel(form, attrType, attrValue, inputID, text) {
+    let label = document.createElement('label')
+    label.setAttribute(attrType, attrValue)
+    label.setAttribute("for", inputID);
+    label.appendChild(document.createTextNode(text))
+    form.appendChild(label)
+}
+
+function createInput(form, inputType, attrType, attrValue, attrType2, attrValue2, attrType3, attrValue3, attrType4, attrValue4) {
+    let input = document.createElement(inputType)
+    input.setAttribute(attrType, attrValue)
+    input.setAttribute(attrType2, attrValue2)
+    input.setAttribute(attrType3, attrValue3)
+    input.setAttribute(attrType4, attrValue4)
+    form.appendChild(input)
+    form.appendChild(document.createElement('br'))
+    form.appendChild(document.createElement('br'))
+}
+
+function attachNewAboutForm(button) {
+    let parentElement = button.parentNode
+    attachEditForm(parentElement)
+    attachButton(parentElement, 'class', 'save-about', 'Save', addAbout, parentElement)
+    attachButton(parentElement, 'class', 'cancel-about', 'Cancel', detachNewaboutForm, parentElement)
+}
+
+function detachNewaboutForm(button) {
+    removeFromParentByClass(button, '.cancel-about')
+    removeFromParentByClass(button, '.edit-form')
+    removeFromParentByClass(button, '.save-about')
+}
+
+async function convertFormToJson(button) {
+    let form = button.parentNode.querySelector('.edit-form')
+    if (form == null) return
+    let title = form[0].value
+    let image = form[1].value
+    let text = form[2].value
+    if (title == "" || text == "") return
+    let abouts = await loadAbouts()
+    if (abouts == null) return
+    const data = {
+        'id': abouts.length,
+        'title': title,
+        'text': text,
+        'img': image
+    }
+    return data
+}
+
+async function addAbout(button) {
+    const data = await convertFormToJson(button)
+    const response = await fetch(httpAdress + '/about-company', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    let about = await response.json()
+    let aboutsList = document.getElementById('about-company-list')
+    let li = createAboutListItem(about)
+    let addButton = document.getElementById('add-about')
+    if (li != null) aboutsList.insertBefore(li, addButton)
+    detachNewaboutForm(button)
+}
+
+async function updateAbout(button) {
+    let id = button.parentNode.id
+    const data = await convertFormToJson(button)
+    const response = await fetch(httpAdress + '/about-company/' + id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    let about = await response.json()
+    updateDropdown(about)
+}
+
+function updateDropdown(about) {
+    let parentElement = document.getElementById(about._id)
+    let title = parentElement.querySelector('.dropdown-title')
+    let image = parentElement.querySelector('.dropdown-img')
+    let text = parentElement.querySelector('.dropdown-txt')
+    title.textContent = about.title
+    image.setAttribute('src', about.img)
+    text.textContent = about.text
+}
+
+async function deleteAbout(button) {
+    let id = button.parentNode.id
+    const response = await fetch(httpAdress + '/about-company/' + id, {
+        method: 'DELETE'
+    })
+    let deletedAbout = await response.json()
+    let li = document.getElementById(deletedAbout._id)
+    li.remove()
+    cancelEditAbout(button)
 }

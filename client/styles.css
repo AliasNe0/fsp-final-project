@@ -157,14 +157,14 @@ details>summary {
 .dropdown-element-shadowbox {
     margin: 0;
     padding: 0;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
 
 .dropdown-element {
     margin-top: 20px;
     padding: 15px;
-    box-shadow: inset 0px 0px 10px 30px rgba(0, 0, 0, 0.01);
+    box-shadow: inset 0px 0px 10px 30px rgba(0, 0, 0, 0.005);
     text-align: right;
 }
 
@@ -243,36 +243,67 @@ details>summary {
 
 /* Edit mode */
 
-#edit-header {
+/* #edit-header {
     cursor: pointer;
     color: blue;
     font-weight: bold;
     font-size: medium;
     margin-top: 65px;
     float: right;
-    width: 80px;
-}
+} */
 
-.edit-about {
+#edit-mode,
+.edit-about,
+#edit-header,
+#add-about,
+.save-about,
+.update-about,
+.cancel-about,
+.delete-about {
     cursor: pointer;
     color: blue;
     font-weight: bold;
     font-size: medium;
     width: 80px;
+    margin: 5px;
 }
 
-#edit-form {
-    padding: 10px;
+#edit-mode {
+    width: auto;
+    position: absolute;
+    right: 50px;
+    margin-top: 35px;
+}
+
+.edit-about,
+#edit-header {
+    right: 300px;
+    position: absolute;
+}
+
+.delete-about {
+    right: 200px;
+    position: absolute;
+}
+
+#add-about {
+    color: green;
+}
+
+.delete-about {
+    color: red;
+}
+
+.edit-form {
+    padding: 20px;
+    text-align: right;
+    overflow: auto;
 }
 
 .edit-form-label {
-   padding: 10px;
+    padding: 10px;
 }
 
 .edit-form-input {
-    width: 80%;
-}
-
-#form-txt {
-    height: 500px;
+    width: 90%;
 }

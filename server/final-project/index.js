@@ -40,7 +40,7 @@ const Image = mongoose.model('Image', imageSchema, 'images')
 
 app.get('/', async (req, res) => {
     res.send('My Website root.')
-  });
+});
 
 // about-company collection endpoints
 app.get('/about-company', async (request, response) => {
@@ -54,7 +54,7 @@ app.get('/about-company/:id', async (request, response) => {
     else response.status(404).end()
 })
 
-app.put('/todos', async (request, response) => {
+app.put('/about-company', async (request, response) => {
     const { id, title, text, img } = request.body
     const about = new About({
         id: id,
@@ -62,63 +62,26 @@ app.put('/todos', async (request, response) => {
         text: text,
         img: img
     })
-    const savedAbout= await about.save()
-    response.json(savedAbout)
+    const savedAbout = await about.save()
+    if (savedAbout) response.json(savedAbout)
+    else response.status(404).end()
 })
 
-app.put('/todos/:id', async (request, response) => {
+app.put('/about-company/:id', async (request, response) => {
     const { id, title, text, img } = request.body
     const editedAbout = await About.findByIdAndUpdate(request.params.id, {
         id: id,
         title: title,
         text: text,
         img: img
-    })
+    }, { new: true })
     if (editedAbout) response.json(editedAbout)
     else response.status(404).end()
 })
 
-app.delete('/todos/:id', async (request, response) => {
+app.delete('/about-company/:id', async (request, response) => {
     const deletedAbout = await About.findByIdAndRemove(request.params.id)
     if (deletedAbout) response.json(deletedAbout)
-    else response.status(404).end()
-})
-
-// images collection endpoint
-app.get('/images', async (request, response) => {
-    const images = await Image.find({})
-    response.json(images)
-})
-
-app.get('/images/:id', async (request, response) => {
-    const image = await Image.findById(request.params.id)
-    if (image) response.json(image)
-    else response.status(404).end()
-})
-
-app.put('/images', async (request, response) => {
-    const { name, link } = request.body
-    const about = new Image({
-        name: name,
-        link: link
-    })
-    const savedImage= await image.save()
-    response.json(savedAbout)
-})
-
-app.put('/images/:id', async (request, response) => {
-    const { name, link } = request.body
-    const editedImage = await Image.findByIdAndUpdate(request.params.id, {
-        name: name,
-        link: link
-    })
-    if (editedImage) response.json(editedImage)
-    else response.status(404).end()
-})
-
-app.delete('/images/:id', async (request, response) => {
-    const deletedImage = await Image.findByIdAndRemove(request.params.id)
-    if (deletedImage) response.json(deletedImage)
     else response.status(404).end()
 })
 

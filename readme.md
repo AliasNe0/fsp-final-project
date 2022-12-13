@@ -9,8 +9,7 @@ https://student.labranet.jamk.fi/~AB0189/Full%20Stack%20Programming/Final%20Proj
 ## Topic of the practice work
 The project represents a draft version of the Home page for the website that I am developing for my relatives.
 Other pages will be finished during December. In addition to the static website elemetns, dynamic "About" containers
-have been added. There is an "Edit Mode" that allows to manipulate the data in those containers. The data is loaded from
-the MongoDB. The server side is implemented with using Deta.sh. The application uses GET, PUT and DELETE HTTP requests.
+have been added. There is an "Edit Mode" that allows for manipulatation of the data in those containers. The data is loaded from custom MongoDB collections and is updated by sending GET, PUT and DELETE HTTP requests to the server. The server is hosted using Deta.sh.
 ## Detailed description
 IN PROGRESS
 ### Time track

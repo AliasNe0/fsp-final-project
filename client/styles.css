@@ -9,6 +9,7 @@ body {
     color: #444444;
     background-color: white;
     font-size: large;
+    min-height: 1300px;
 }
 
 p {
@@ -28,7 +29,8 @@ header {
 
 footer {
     background-image: url("../media/footer.jpg");
-    /* background-position: center; */
+    background-size: 100%;
+    background-position: center;
     margin: 0;
     margin-top: 30px;
     padding: 0;
@@ -53,6 +55,7 @@ details>summary {
 #logo-img {
     margin: auto;
     width: 5%;
+    min-width: 50px;
     display: block;
 }
 
@@ -115,6 +118,10 @@ details>summary {
     left: 0;
 }
 
+#navigation-bar-ul {
+    min-width: 350px;
+}
+
 #background-img-container {
     overflow: hidden;
     margin-top: -10%;
@@ -140,7 +147,7 @@ details>summary {
 }
 
 #about-company-header {
-    padding-top: 30px;
+    padding-top: 10px;
     margin-bottom: 20px;
 }
 
@@ -198,12 +205,16 @@ details>summary {
 
 .dropdown-img-container {
     padding: 10px;
-    text-align: center;
-    ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 600px;
+    overflow: hidden;
 }
 
 .dropdown-img {
     width: 100%;
+    height: auto;
 }
 
 .dropdown-txt {
@@ -264,30 +275,38 @@ details>summary {
     color: blue;
     font-weight: bold;
     font-size: medium;
-    width: 80px;
+    width: auto;
     margin: 5px;
 }
 
 #edit-mode {
     width: auto;
-    position: absolute;
-    right: 50px;
-    margin-top: 35px;
+    position: sticky;
+    top: 70px;
+    float: right;
+    right: 20px;
+    color: magenta;
 }
 
 .edit-about,
+.delete-about,
 #edit-header {
     right: 300px;
     position: absolute;
+    margin-top: 30px;
 }
 
 .delete-about {
-    right: 200px;
-    position: absolute;
+    right: 220px;
+}
+
+.update-about {
+    margin-bottom: 20px;
 }
 
 #add-about {
     color: green;
+    margin-top: 30px;
 }
 
 .delete-about {

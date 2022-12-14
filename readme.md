@@ -26,7 +26,7 @@ The current version of the application was done in approximately four days:
 ### Strengths
 - Clean code
 - Versatile
-- Resusable
+- Reusable
 ### Weaknesses
 - Code might need to be split into several files (code regions are implemented though)
 - CSS styles should be optimized; not compatible with mobile screens

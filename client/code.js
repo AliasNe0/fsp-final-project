@@ -2,7 +2,6 @@
 async function init() {
     let abouts = await loadAbouts()
     showAbouts(abouts)
-    createAboutHeader(abouts)
     attachToggles()
     attachEditModeButton()
 }
@@ -13,19 +12,6 @@ async function init() {
 async function loadAbouts() {
     let response = await fetch(httpAdress + '/about-company')
     return await response.json()
-}
-
-// create the "About Company" header
-function createAboutHeader(abouts) {
-    let aboutsHeader = document.getElementById('about-company-header')
-    // this About always has id = 0
-    let header = abouts.filter(function (about) { return about.id == 0 })[0]
-    // abort if there is no Abouts with id = 0
-    if (header == null) return
-    let h1 = createElementWithTxt('h1', 'class', 'about-company-title', header.title)
-    aboutsHeader.appendChild(h1)
-    let p = createElementWithTxt('p', 'class', 'about-company-txt', header.text)
-    aboutsHeader.appendChild(p)
 }
 
 // create a list of all Abouts
@@ -54,6 +40,16 @@ function attachEditModeButton() {
 //#endregion
 
 //#region Generic Functions
+
+// generic function to attach one toggle
+function attachToggle(parentElement) {
+    let element = parentElement.querySelector('.dropdown-toggle')
+    element.onclick = function () {
+        $(this).next('div').slideToggle(500);
+        e.stopPropagation();
+        e.preventDefault();
+    }
+}
 
 // generic function for all button attachments
 function attachButton(parentElement, attrType, attrValue, text, callback, position) {
@@ -86,9 +82,25 @@ function createElementWithTxt(elementType, attrType, attrValue, text) {
     return element
 }
 
+// generic function for header
+function createHeaderElement (about)
+{
+    let aboutsHeader = document.getElementById('about-company-header')
+    let h1 = createElementWithTxt('h1', 'class', 'about-company-title', about.title)
+    aboutsHeader.appendChild(h1)
+    let p = createElementWithTxt('p', 'class', 'about-company-txt', about.text)
+    aboutsHeader.appendChild(p)
+    let div = createElement('div', 'class', 'dropdown-content')
+    aboutsHeader.appendChild(div)
+    if (about.img != "") {
+        // create an img element
+        // null means that there is no existing img element
+        attachImage(null, div, about)
+    }
+}
+
 // generic function for new li elements
 function createAboutListItem(about) {
-    if (about.id == "0") return
     let li = createElement2('li', 'id', about._id, 'class', 'dropdown-element-shadowbox')
     let div = createElement('div', 'class', 'dropdown-element')
     li.appendChild(div)
@@ -161,9 +173,6 @@ function toggleEditMode(button) {
 
 // add all editing buttons
 function enableEditMode() {
-    // attach Edit button to the header
-    let aboutCompanyHeader = document.getElementById("about-company-header")
-    attachButton(aboutCompanyHeader, 'id', 'edit-header', 'Edit', editAbout, 0)
     // attach Edit button to all Abouts
     let dropdownElements = document.querySelectorAll(".dropdown-element-shadowbox")
     for (dropdownElement of dropdownElements) {
@@ -177,7 +186,6 @@ function enableEditMode() {
 
 // remove all editing buttons
 function disableEditMode() {
-    removeById('edit-header')
     removeAllbyClass('.edit-about')
     removeAllbyClass('.delete-about')
     removeAllbyClass('.cancel-about')
@@ -278,13 +286,12 @@ function createInput(form, inputType, attrType, attrValue, attrType2, attrValue2
 }
 
 // convert form values to a json object
-function convertFormToJson(form, id) {
+function convertFormToJson(form) {
     if (form == null) return
     let title = form[0].value
     let image = form[1].value
     let text = form[2].value
     const data = {}
-    if (title != "") data.id = id
     if (title != "") data.title = title
     if (text != "") data.text = text
     if (image != "") data.img = image
@@ -302,12 +309,8 @@ async function addAbout(button) {
     // check if title and text field are not empty
     let form = button.parentNode.querySelector('.edit-form')
     if (form[0].value == "" || form[2].value == "") return
-    // generate new id value (custom id)
-    let abouts = await loadAbouts()
-    if (abouts == null) return
-    let id = abouts.length
     // create a json object
-    const data = convertFormToJson(form, id)
+    const data = convertFormToJson(form)
     // send a new About object to the server
     const response = await fetch(httpAdress + '/about-company', {
         method: 'PUT',
@@ -330,19 +333,21 @@ function createNewLiAndAppend(button, about) {
     removeFromParentByClass(button, '.edit-form')
     removeFromParentByClass(button, '.cancel-about')
     removeFromParentByClass(button, '.save-about')
-    // attach Edit button to the li element
+    // attach toggle to a li element
+    attachToggle(li)
+    // attach Cancel and Edit button to the li element
     let parentElement = document.getElementById(about._id)
-    attachButton(parentElement, 'id', 'edit-header', 'Edit', editAbout, 0)
+    attachButton(parentElement, 'class', 'delete-about', 'Delete', deleteAbout, 0)
+    attachButton(parentElement, 'class', 'edit-about', 'Edit', editAbout, 0)
 }
 
 async function updateAbout(button) {
     // _id equals to the id of the parent element
-    let _id = button.parentNode.id
+    let id = button.parentNode.id
     let form = button.parentNode.querySelector('.edit-form')
     // create a json object id
-    // id is not needed for updates
     const data = convertFormToJson(form, "")
-    const response = await fetch(httpAdress + '/about-company/' + _id, {
+    const response = await fetch(httpAdress + '/about-company/' + id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

@@ -20,23 +20,14 @@ db.once('open', function () {
     console.log("Database test connected")
 })
 
-// schema 1
+// schema
 const aboutSchema = new mongoose.Schema({
-    id: { type: Number, required: true },
     title: { type: String, required: true },
     text: { type: String, required: true },
     img: { type: String, required: false }
 })
-// model 1
+// model
 const About = mongoose.model('About', aboutSchema, 'about-company')
-
-// schema 2
-const imageSchema = new mongoose.Schema({
-    name: { type: String, required: false },
-    link: { type: String, required: true }
-})
-// model 2
-const Image = mongoose.model('Image', imageSchema, 'images')
 
 app.get('/', async (req, res) => {
     res.send('My Website root.')
@@ -55,9 +46,8 @@ app.get('/about-company/:id', async (request, response) => {
 })
 
 app.put('/about-company', async (request, response) => {
-    const { id, title, text, img } = request.body
+    const { title, text, img } = request.body
     const about = new About({
-        id: id,
         title: title,
         text: text,
         img: img
@@ -68,9 +58,8 @@ app.put('/about-company', async (request, response) => {
 })
 
 app.put('/about-company/:id', async (request, response) => {
-    const { id, title, text, img } = request.body
+    const { title, text, img } = request.body
     const editedAbout = await About.findByIdAndUpdate(request.params.id, {
-        id: id,
         title: title,
         text: text,
         img: img

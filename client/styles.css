@@ -32,7 +32,6 @@ footer {
     background-size: 100%;
     background-position: center;
     margin: 0;
-    margin-top: 30px;
     padding: 0;
     text-align: center;
     color: #aeaeae;
@@ -138,6 +137,7 @@ details>summary {
     margin: auto;
     margin-top: 35%;
     background-color: white;
+    padding-bottom: 30px;
 }
 
 #about-company-container {
